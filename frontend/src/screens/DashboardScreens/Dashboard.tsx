@@ -774,10 +774,15 @@ const BulkCreateLinkDrawer = ({ openedBulkCreateLink, setOpenedBulkCreateLink }:
 		const lines = text.split('\n').filter(line=>line.trim()!=='');
 		const links = lines.map(line => {
 			// Split each line by comma and trim spaces
-			const [long_url, title, stub] = line.split(',').map(value => value.trim());
-			if(!long_url || !title) {
+			let [long_url, title] = line.split(',').map(value => value.trim());
+			if(!long_url) {
 				throw new Error('Invalid file format');
 			};
+			if(!title){
+				// Set title to the domain name if missing
+				const url = new URL(long_url);
+				title = url.hostname;
+			}
 			// Create JSON object for each line
 			return {
 				long_url,
@@ -831,43 +836,46 @@ const BulkCreateLinkDrawer = ({ openedBulkCreateLink, setOpenedBulkCreateLink }:
 	};
 	
 	return (
-        <Drawer
-            title="Bulk Create Short URLs"
-            placement="right"
-            onClose={() => setOpenedBulkCreateLink(false)}
-            open={openedBulkCreateLink}
-        >
-            <div>
-				<p><strong>Allowed File Types:</strong> JSON or TXT</p>
-				<p><strong>JSON Format:</strong></p>
-				<pre>{`{
-    "links": [
-        {
-            "long_url": "https://anotherexample2.com",
-            "title": "Example 1"
-        },
-        ...
-    ]
-}`}</pre>
-
-				<p><strong>TXT Format:</strong></p>
-				<pre>{`https://exampl111e.com,Example Title 111
-https://anotherexample11111111.com,Another1 Example
-https://yetanotherexample11111.com,Yet Another1111 Example`}</pre>
-
-				<input type="file" onChange={handleFileChange} accept=".json,.txt" />
-               
-				<Button
-								size={'large'}
-								onClick={handleBulkSubmit}
-								type="primary"
-								disabled={isLoading}
-								loading={isLoading}
-							>
-								Submit
-							</Button>
-            </div>
-        </Drawer>
+		<Drawer
+		title="Bulk Create Short URLs"
+		placement="right"
+		onClose={() => setOpenedBulkCreateLink(false)}
+		open={openedBulkCreateLink}
+	>
+		<div>
+			<p><strong>Allowed File Types:</strong> JSON or TXT</p>
+			<p><strong>JSON Format:</strong></p>
+			<pre>{`{
+		"links": [
+			{
+				"long_url": "https://anotherexample2.com",
+				"title": "Example 1"
+			},
+			...
+		]
+	}`}</pre>
+	
+			<p><strong>TXT Format:</strong> (Title defaults to domain name if missing)</p>
+			<pre>{`https://exampl111e.com,Example Title 111
+	https://anotherexample11111111.com,Another1 Example
+	https://yetanotherexample11111.com,Yet Another1111 Example
+	https://missingtitleexample.com,`}</pre>
+			<p><em>If the title is missing, it will be set to the domain name by default.</em></p>
+	
+			<input type="file" onChange={handleFileChange} accept=".json,.txt" />
+			
+			<Button
+				size={'large'}
+				onClick={handleBulkSubmit}
+				type="primary"
+				disabled={isLoading}
+				loading={isLoading}
+			>
+				Submit
+			</Button>
+		</div>
+	</Drawer>
+	
     );
 };
 

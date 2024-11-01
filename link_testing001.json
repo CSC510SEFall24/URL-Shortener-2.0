@@ -1,0 +1,39 @@
+{
+    "links": [
+        {
+            "long_url": "https://www.wikipedia.org",
+            "title": "Wikipedia"
+        },
+        {
+            "long_url": "https://www.github.com",
+            "title": "GitHub"
+        },
+        {
+            "long_url": "https://www.openai.com"
+        },
+        {
+            "long_url": "https://www.python.org",
+            "title": "Python"
+        },
+        {
+            "long_url": "https://www.stackoverflow.com"
+        },
+        {
+            "long_url": "https://www.reddit.com"
+        },
+        {
+            "long_url": "https://www.linkedin.com",
+            "title": "LinkedIn"
+        },
+        {
+            "long_url": "https://www.medium.com"
+        },
+        {
+            "long_url": "https://www.amazon.com",
+            "title": "Amazon"
+        },
+        {
+            "long_url": "https://www.microsoft.com"
+        }
+    ]
+}
