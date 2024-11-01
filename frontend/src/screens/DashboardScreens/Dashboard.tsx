@@ -552,7 +552,7 @@ const LinkCardItem = ({ setOpenedLink, setOpenedViewLink, item }: any) => {
 	let user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
 
 	const handleCopy = async () => {
-		const text = `http://localhost:5001/${stub}`;
+		const text = `http://localhost:5002/${stub}`;
 		if ('clipboard' in navigator) {
 			await navigator.clipboard.writeText(text);
 		} else {
@@ -803,7 +803,7 @@ const BulkCreateLinkDrawer = ({ openedBulkCreateLink, setOpenedBulkCreateLink }:
 
 		try {
 			// Send the JSON data to the backend
-			await http.post(`http://localhost:5001/links/create_bulk?user_id=${user_id}`, jsonData, {
+			await http.post(`http://localhost:5002/links/create_bulk?user_id=${user_id}`, jsonData, {
 				headers: {
 					'Content-Type': 'application/json'
 				}

@@ -34,18 +34,13 @@ from flask_cors import CORS
 # from backend.extensions import db, bcrypt
 # from backend.src.routes.auth import auth_bp
 # from backend.src.models.user import User, login_manager
-try:
-    from .config import config
-    from .extensions import db, bcrypt
-    from .routes.auth import auth_bp
-    from .routes.links import links_bp
-    from .models.user import User, login_manager
-except ImportError:
-    from config import config
-    from extensions import db, bcrypt
-    from routes.auth import auth_bp
-    from routes.links import links_bp
-    from models.user import User, login_manager
+
+from src.config import config
+from src.extensions import db, bcrypt
+from src.routes.auth import auth_bp
+from src.routes.links import links_bp
+from src.models.user import User, login_manager
+  
 
 def create_app():
     """Create Flask application."""
